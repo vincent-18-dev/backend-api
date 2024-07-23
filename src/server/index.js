@@ -16,7 +16,6 @@ app.use(
   })
 );
 
-// Use JSON middleware to parse JSON bodies
 app.use(express.json());
 
 // Correct the order of parameters in the root route
