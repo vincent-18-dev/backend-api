@@ -4,15 +4,22 @@ const signin = require("../Controllers/loginuser");
 const signup = require("../Controllers/register");
 const forgetPassword = require("../Controllers/forgetpassword");
 require("../../DB");
+
 const app = express();
+
 // Use CORS middleware
 app.use(cors());
 
+// Use JSON middleware to parse JSON bodies
 app.use(express.json());
-app.get("/", (res, req) => {
+
+// Correct the order of parameters in the root route
+app.get("/", (req, res) => {
   res.json("hello");
 });
+
 app.post("/login", signin);
+
 app.post("/register", async (req, res) => {
   console.log("Received /register request", req.body);
   try {
@@ -24,7 +31,9 @@ app.post("/register", async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 app.put("/forget-password", forgetPassword);
+
 const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
