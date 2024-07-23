@@ -7,8 +7,14 @@ require("../../DB");
 
 const app = express();
 
-// Use CORS middleware
-app.use(cors());
+// Use CORS middleware with options
+app.use(
+  cors({
+    origin: "https://login-dashboard-front-end.vercel.app", // Replace with your frontend URL
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 // Use JSON middleware to parse JSON bodies
 app.use(express.json());
@@ -17,9 +23,11 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.json("hello");
 });
+
 app.post("/login", signin);
 app.post("/register", signup);
 app.put("/forget-password", forgetPassword);
+
 const PORT = process.env.PORT || 3004;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
