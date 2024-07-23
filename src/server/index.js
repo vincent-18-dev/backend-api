@@ -9,7 +9,9 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
-
+app.get("/", (res, req) => {
+  res.json("hello");
+});
 app.post("/login", signin);
 app.post("/register", async (req, res) => {
   console.log("Received /register request", req.body);
